@@ -64,7 +64,7 @@ const Header = () => {
           <FiSearch className="text-xl text-gray-500" />
         </div>
 
-        {/* Center the logo and adjust its size */}
+       
         <div className="flex justify-center w-full mx-auto">
           <img 
             src="https://demo-alukas.myshopify.com/cdn/shop/files/alk_logo_footer.png?v=1714702294&width=533" 

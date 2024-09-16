@@ -4,7 +4,7 @@ import { BsFacebook, BsInstagram, BsYoutube, BsTiktok } from 'react-icons/bs';
 
 export default function Footer() {
   return (
-    <footer className="bg-white w-full border-t border-gray-200">
+    <footer className="bg-white w-full border-t border-gray-200 mt-10">
     <div className="bg-gray-100 py-24 text-center">
       <h2 className="text-4xl mb-6">Subscribe Newsletter</h2>
       <p className="text-[1.2rem] text-gray-700 mb-8">

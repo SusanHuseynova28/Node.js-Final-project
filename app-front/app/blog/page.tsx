@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FiTrash } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,9 +11,9 @@ export default function Blog() {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-   // Loading state
 
-  const blogsPerPage = 8; // Always show 8 blogs per page
+
+  const blogsPerPage = 8;
 
   const [newBlog, setNewBlog] = useState({
     title: "",
@@ -25,7 +26,7 @@ export default function Blog() {
   });
 
   useEffect(() => {
-    // Simulate network delay
+    
     setTimeout(() => {
       fetch("http://localhost:3001/api/v1/blogs")
         .then((response) => {
@@ -42,8 +43,8 @@ export default function Blog() {
           }
         })
         .catch((error) => console.error("Failed to fetch blogs:", error))
-        .finally(() => setLoading(false)); 
-    }, 3000); 
+        .finally(() => setLoading(false));
+    }, 3000);
   }, []);
 
   const handleSearch = (e) => {
@@ -60,22 +61,22 @@ export default function Blog() {
       ...newBlog,
       _id: Date.now(),
       image: newBlog.image
-        ? URL.createObjectURL(newBlog.image) // If image uploaded, create URL
-        : "http://localhost:3001/uploads/placeholder.png", // Use placeholder if no image
+        ? URL.createObjectURL(newBlog.image) 
+        : "http://localhost:3001/uploads/placeholder.png", 
       isNew: true,
       postDate: new Date().toISOString(),
     };
 
-    // Prepend the new blog to ensure it's on the first page
+    
     setBlogs((prevBlogs) => [newBlogEntry, ...prevBlogs]);
 
-    // Ensure the current page is set to 1 to show the new blog
+    
     setCurrentPage(1);
 
     toast.success("Blog created successfully!");
     setShowModal(false);
 
-    // Reset the form fields
+   
     setNewBlog({
       title: "",
       description: "",
@@ -96,7 +97,7 @@ export default function Blog() {
     blog.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Pagination logic
+  
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = filteredBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
@@ -107,10 +108,9 @@ export default function Blog() {
 
   return (
     <div className="container mx-auto p-5">
-      <ToastContainer /> {/* Toast notifications */}
+      <ToastContainer /> 
       <h1 className="text-4xl font-semibold text-center mt-6">News</h1>
-
-      {/* Search and Create Section */}
+      
       <div className="flex justify-between items-center mt-6 pl-6">
         <input
           type="text"
@@ -126,19 +126,21 @@ export default function Blog() {
           Create Blog
         </button>
       </div>
-
-      {/* Skeleton Screen - Show while loading */}
+     
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 p-6">
           {Array(8)
             .fill(0)
             .map((_, index) => (
-              <div key={index} className="bg-gray-200 animate-pulse h-64 rounded"></div>
+              <div
+                key={index}
+                className="bg-gray-200 animate-pulse h-64 rounded"
+              ></div>
             ))}
         </div>
       ) : (
         <>
-          {/* Blog Cards */}
+          
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 p-6">
             {currentBlogs.map((blog) => (
               <div key={blog._id} className="bg-white overflow-hidden relative">
@@ -147,7 +149,9 @@ export default function Blog() {
                     src={
                       blog.isNew && blog.image
                         ? blog.image
-                        : `http://localhost:3001/uploads/${blog.image || "placeholder.png"}`
+                        : `http://localhost:3001/uploads/${
+                            blog.image || "placeholder.png"
+                          }`
                     }
                     alt={blog.title}
                     className="w-full h-52 object-cover transform transition-transform duration-300 group-hover:scale-110"
@@ -158,8 +162,11 @@ export default function Blog() {
                 </div>
                 <div className="p-4">
                   <p className="text-sm text-gray-500 mb-2">
-                    POST BY {blog.postedBy ? blog.postedBy.toUpperCase() : "Unknown Author"} -{" "}
-                    {new Date(blog.postDate).toDateString()}
+                    POST BY{" "}
+                    {blog.postedBy
+                      ? blog.postedBy.toUpperCase()
+                      : "Unknown Author"}{" "}
+                    - {new Date(blog.postDate).toDateString()}
                   </p>
                   <h2 className="text-xl font-semibold mb-2">{blog.title}</h2>
                   <p className="text-gray-600 mb-4">
@@ -168,7 +175,12 @@ export default function Blog() {
                       : blog.description}
                   </p>
                   <div className="flex justify-between items-center">
-                    <button className="text-black underline-animation">Continue Reading</button>
+                    <Link href={`/carddetails`}>
+                      <button className="text-black underline-animation">
+                        Continue Reading
+                      </button>
+                    </Link>
+
                     {blog.isNew && (
                       <button
                         className="text-red-500 hover:text-red-700"
@@ -183,7 +195,7 @@ export default function Blog() {
             ))}
           </div>
 
-          {/* Pagination */}
+         
           <div className="flex justify-center mt-6">
             {Array.from({ length: totalPages }, (_, index) => (
               <button
@@ -199,8 +211,7 @@ export default function Blog() {
           </div>
         </>
       )}
-
-      {/* Modal for Creating a Blog */}
+      
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
           <div className="bg-white p-6 rounded-md w-96">
@@ -209,19 +220,25 @@ export default function Blog() {
               type="text"
               placeholder="Title"
               value={newBlog.title}
-              onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+              onChange={(e) =>
+                setNewBlog({ ...newBlog, title: e.target.value })
+              }
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
             <textarea
               placeholder="Description"
               value={newBlog.description}
-              onChange={(e) => setNewBlog({ ...newBlog, description: e.target.value })}
+              onChange={(e) =>
+                setNewBlog({ ...newBlog, description: e.target.value })
+              }
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
             <input
               type="file"
               accept="image/*"
-              onChange={(e) => setNewBlog({ ...newBlog, image: e.target.files[0] })}
+              onChange={(e) =>
+                setNewBlog({ ...newBlog, image: e.target.files[0] })
+              }
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
 
@@ -229,20 +246,30 @@ export default function Blog() {
               type="text"
               placeholder="Category"
               value={newBlog.category}
-              onChange={(e) => setNewBlog({ ...newBlog, category: e.target.value })}
+              onChange={(e) =>
+                setNewBlog({ ...newBlog, category: e.target.value })
+              }
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
             <input
               type="text"
               placeholder="Posted By"
               value={newBlog.postedBy}
-              onChange={(e) => setNewBlog({ ...newBlog, postedBy: e.target.value })}
+              onChange={(e) =>
+                setNewBlog({ ...newBlog, postedBy: e.target.value })
+              }
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
-            <button className="bg-black text-white px-4 py-2 rounded mr-2" onClick={handleCreateBlog}>
+            <button
+              className="bg-black text-white px-4 py-2 rounded mr-2"
+              onClick={handleCreateBlog}
+            >
               Save Blog
             </button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={() => setShowModal(false)}>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={() => setShowModal(false)}
+            >
               Cancel
             </button>
           </div>
