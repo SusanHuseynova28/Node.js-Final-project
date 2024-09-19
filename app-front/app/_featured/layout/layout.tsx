@@ -1,11 +1,12 @@
 import React from 'react';
-import Header from '../header/index';
-import Footer from '../footer/index';
+import Navbar from '../header';
+import Footer from '../footer';
+import { LayoutProps } from '@/.next/types/app/layout';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <Header />
+      <Navbar/>
       <main>{children}</main>
       <Footer />
     </>

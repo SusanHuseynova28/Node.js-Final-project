@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaPhoneAlt} from 'react-icons/fa';
 import { BsFacebook, BsInstagram, BsYoutube, BsTiktok } from 'react-icons/bs';
+import { SlEarphones } from "react-icons/sl";
 
 export default function Footer() {
   return (
@@ -85,7 +86,7 @@ export default function Footer() {
         <h4 className="text-lg font-semibold mb-4">Store Details</h4>
         <ul className="space-y-4 text-sm text-gray-700">
           <div className="flex items-center mb-2">
-            <FaPhoneAlt className="text-4xl bg-gray-200 p-2 rounded-full mr-4" />
+            <SlEarphones className="text-4xl bg-gray-200 p-2 rounded-full mr-4" />
             <span className="text-lg">( +800 ) 1234 56</span>
           </div>
           <li className="flex items-center transition-transform">

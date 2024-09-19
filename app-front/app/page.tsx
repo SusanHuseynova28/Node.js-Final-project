@@ -1,10 +1,5 @@
-import React from 'react';
-import Blog from './blog/page';
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div>
-      <Blog />
-    </div>
-  );
+  redirect(`/login`);
 }
