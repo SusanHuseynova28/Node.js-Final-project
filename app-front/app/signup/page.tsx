@@ -1,7 +1,7 @@
 'use client';
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation"; 
+import { useState, ChangeEvent, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link"; 
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -11,31 +11,20 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
   const router = useRouter();
 
-  const handleChange = ({ target }: any) => {
-    setData({ ...data, [target.name]: target.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3001/api/auth/signup"; 
-      const requestData = {
-        username: data.username,
-        name: data.name,
-        surname: data.surname,
-        email: data.email,
-        password: data.password,
-      };
-
-      const response = await fetch(url, {
+      const response = await fetch("http://localhost:3001/api/auth/signup", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
@@ -44,11 +33,12 @@ const Signup = () => {
         return;
       }
 
-      const res = await response.json();
-      console.log("Signup successful:", res);
+      const resData = await response.json();
+      console.log("Signup successful:", resData);
+
+    
       router.push("/login");
     } catch (error) {
-      console.error("Signup error:", error);
       setError("Something went wrong. Please try again later.");
     }
   };
@@ -103,21 +93,17 @@ const Signup = () => {
             required
             className="p-3 mb-6 border-b-2 border-gray-300 focus:outline-none"
           />
-          {error && (
-            <div className="p-3 mb-4 text-center text-white bg-red-500 rounded-md">
-              {error}
-            </div>
-          )}
+          {error && <div className="text-red-500 mb-4">{error}</div>}
           <button
             type="submit"
-            className="p-3 mb-4 text-white font-bold rounded-md bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500"
+            className="p-3 mb-4 bg-blue-500 text-white font-bold rounded-md"
           >
             Sign Up
           </button>
-          <div className="flex justify-between text-sm text-gray-600 mb-6">
-            <Link href="/login">
-              Already have an account? <span className="text-blue-500">Sign In</span>
-            </Link>
+         
+          <div className="flex justify-between text-sm text-gray-600 mt-4">
+            <span>Already have an account?</span>
+            <Link href="/login" className="text-blue-500">Log In</Link>
           </div>
         </form>
       </div>
