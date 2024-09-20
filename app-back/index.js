@@ -5,6 +5,7 @@ const productDbConnection = require("./db/ProductDb");
 const connection = require("./db/ConnectionDb"); 
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/productRoutes");
+const categoryRoutes = require("./routes/categoryRoutes"); // Added category routes
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.use("/api/auth", authRoutes);
 // Routes for product management
 app.use("/api/products", productRoutes);
 
+// Routes for categories
+app.use("/api/categories", categoryRoutes); // New category routes
 
 // Define the server port from .env or default to 8080
 const port = process.env.PORT || 8080;
