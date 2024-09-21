@@ -5,7 +5,7 @@ import { FiSearch, FiUser, FiShoppingCart, FiHeart } from "react-icons/fi";
 import { LuChevronDown } from "react-icons/lu";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { FiMapPin } from "react-icons/fi";
-import CardSidebar from "@/app/sidebar/CardSidebar";
+import CardSidebar from "@/app/_components/sidebar/CardSidebar";
 
 
 export default function Navbar() {

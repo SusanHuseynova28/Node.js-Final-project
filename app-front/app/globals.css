@@ -163,3 +163,35 @@ body {
     }
   }
 }
+ 
+
+.normal-image {
+  @apply w-full transition-opacity duration-300;
+}
+
+.hover-image {
+  @apply absolute inset-0 w-full opacity-0 transition-opacity duration-300;
+}
+
+.collection-item:hover .normal-image {
+  @apply opacity-0;
+}
+
+.collection-item:hover .hover-image {
+  @apply opacity-100;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
