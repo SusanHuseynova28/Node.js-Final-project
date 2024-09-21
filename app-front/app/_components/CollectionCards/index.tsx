@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
 import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
 import { Collection } from "@/app/types/collection";
 
@@ -28,7 +26,6 @@ export default function CollectionGrid({
     fetchCollections();
   }, []);
 
-  // Toggle price visibility and show "ADD TO CART" on hover
   const handlePriceHover = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
     const priceElement = e.currentTarget;
     const addToCartElement = priceElement.nextElementSibling;
@@ -40,17 +37,15 @@ export default function CollectionGrid({
 
   return (
     <div className="container mx-auto py-8 relative">
-      <h2 className="text-center text-3xl font-bold mb-4">Trendy Collection</h2>
+      <h2 className="text-center text-3xl  mb-4">Trendy Collection</h2>
       <p className="text-center mb-8">
         Collect your loves with our newest arrivals.
       </p>
 
-      {/* Swiper showing 7 images with only 2 buttons */}
+      {/* Swiper showing 7 images */}
       <Swiper
-        modules={[Navigation]}
         spaceBetween={20}
         slidesPerView={4} // Shows 4 images for larger screens
-        navigation
         breakpoints={{
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
@@ -60,21 +55,17 @@ export default function CollectionGrid({
       >
         {collections.slice(0, 7).map((collection) => (
           <SwiperSlide key={collection._id}>
-            {/* Isolate hover effects to each SwiperSlide */}
             <div className="relative overflow-hidden transition-transform duration-300">
-              {/* Image without hover movement */}
               <img
                 src={collection.imageUrl}
                 alt={collection.title}
-                className="object-cover w-full h-[350px] transition-opacity duration-300 hover:opacity-80"
+                className="object-cover w-full h-[300px] transition-opacity duration-300 hover:opacity-80"
               />
               <img
-  src={collection.hoverImageUrl}
-  alt={`${collection.title} Hover`}
-  className="absolute inset-0 object-cover w-full h-[350px] opacity-0 transition-opacity duration-300 hover:opacity-100"
-/>
-
-              {/* Icons animate in from right, isolated per image */}
+                src={collection.hoverImageUrl}
+                alt={`${collection.title} Hover`}
+                className="absolute inset-0 object-cover w-full h-[300px] opacity-0 transition-opacity duration-300 hover:opacity-100"
+              />
               <div className="absolute right-4 top-4 flex flex-col space-y-2 opacity-0 transition-all duration-300 transform translate-x-full group-hover:translate-x-0 group-hover:opacity-100">
                 <button className="p-2 bg-black rounded-full shadow-lg hover:bg-gray-200 transition">
                   <FaHeart className="text-white hover:text-black " />
@@ -86,14 +77,11 @@ export default function CollectionGrid({
                   <FaSearch className="text-black hover:text-white" />
                 </button>
               </div>
-
               <div className="mt-4 text-center relative">
                 <h3 className="text-sm font-medium uppercase">
                   {collection.description}
                 </h3>
                 <p className="text-gray-600">{collection.title}</p>
-
-                {/* Price and ADD TO CART handling */}
                 <div className="relative">
                   <span
                     className="text-lg font-bold cursor-pointer"
@@ -110,14 +98,6 @@ export default function CollectionGrid({
             </div>
           </SwiperSlide>
         ))}
-
-        {/* Only 2 Swiper Navigation Buttons */}
-        <div className=" bg-white rounded-full text-black text-sm shadow-lg cursor-pointer transition-all duration-300 hover:bg-black hover:text-white transform hover:translate-x-0 absolute left-2 top-1/2 -translate-y-1/2 z-10">
-          {/* Swiper previous button (optional icon can be added here) */}
-        </div>
-        <div className="  bg-white rounded-full text-black text-sm shadow-lg cursor-pointer transition-all duration-300 hover:bg-black hover:text-white transform hover:translate-x-0 absolute right-2 top-1/2 -translate-y-1/2 z-10">
-          {/* Swiper next button (optional icon can be added here) */}
-        </div>
       </Swiper>
     </div>
   );
