@@ -117,7 +117,7 @@ export default function Navbar() {
                   onMouseLeave={() => setIsHomeHovered(false)}
                 >
                   <Link
-                    href="/"
+                    href="/home"
                     className="underline-animation cursor-pointer "
                   >
                     HOME

@@ -5,20 +5,20 @@ const categoryController = require('../controllers/categoryController');
 
 const router = express.Router();
 
-// Configure multer for image uploads
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Store images in the 'uploads' folder
+        cb(null, 'uploads/'); 
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname)); // Ensure unique file names
+        cb(null, Date.now() + path.extname(file.originalname)); 
     }
 });
 
 const upload = multer({ storage: storage });
 
-// Routes for fetching and creating categories
+
 router.get('/', categoryController.getCategories);
-router.post('/', upload.single('image'), categoryController.createCategory); // Handle image upload
+router.post('/', upload.single('image'), categoryController.createCategory); 
 
 module.exports = router;

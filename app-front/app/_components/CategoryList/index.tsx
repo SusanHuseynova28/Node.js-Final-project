@@ -38,9 +38,9 @@ export default function CategoryList() {
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 p-6">
                 {categories.map((category) => (
                     <div key={category.name} className="category-card text-center p-4">
-                        {/* Container for image with overflow-hidden */}
+                       
                         <div className="w-full  rounded-full overflow-hidden">
-                            {/* Image scales from the inside */}
+                         
                             <img
                                 src={category.imageUrl}
                                 alt={category.name}

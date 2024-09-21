@@ -5,28 +5,24 @@ const productDbConnection = require("./db/ProductDb");
 const connection = require("./db/ConnectionDb"); 
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/productRoutes");
-const categoryRoutes = require("./routes/categoryRoutes"); // Added category routes
+const categoryRoutes = require("./routes/categoryRoutes");
+const collectionRoutes = require("./routes/collectionRoutes"); // Collection routes
 
 const app = express();
 
-// Middleware for parsing JSON requests
 app.use(express.json());
-
-// Middleware for handling CORS
 app.use(cors());
 
-// Connect to the Product database using the connection from ProductDb.js
-productDbConnection();
+productDbConnection(); // Existing product DB connection
+connection(); // Additional DB connection if needed for collections (ensure this is used properly)
 
-// Routes for authentication
+// Existing routes
 app.use("/api/auth", authRoutes);
-
-// Routes for product management
 app.use("/api/products", productRoutes);
+app.use("/api/categories", categoryRoutes);
 
-// Routes for categories
-app.use("/api/categories", categoryRoutes); // New category routes
+// Collection routes
+app.use("/api/collections", collectionRoutes); // Added the collection routes
 
-// Define the server port from .env or default to 8080
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Server is running on port ${port}...`));
