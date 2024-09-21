@@ -5,6 +5,7 @@ import ProductCards from "../_components/ProductCards"
 import CategoryList from "../_components/CategoryList"
 import CollectionGrid from "../_components/CollectionCards"
 import FindStore from "../_components/FindStore"
+import AutumnCollection from "../_components/autumncollection"
 export default function Homepage(){
     return(
         <>
@@ -14,6 +15,7 @@ export default function Homepage(){
         <CategoryList/>
         <CollectionGrid/>
         <FindStore/>
+        <AutumnCollection/>
         <Footer/>
         </>
     )

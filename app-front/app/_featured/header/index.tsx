@@ -13,18 +13,17 @@ export default function Navbar() {
   const [isPagesHovered, setIsPagesHovered] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
 
-  // Sidebar toggle funksiyası
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  // Wishlist count-u oxuyur
+
   useEffect(() => {
     const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     setWishlistCount(savedWishlist.length);
   }, []);
 
-  // localStorage-də dəyişiklik olduqda Wishlist sayını yeniləyir
+ 
   useEffect(() => {
     const updateWishlistCount = () => {
       const savedWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
@@ -87,7 +86,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-6">
           <FiUser className="text-2xl cursor-pointer" />
 
-          {/* Wishlist İkonu */}
+         
           <div className="relative">
             <Link href="/wishlist">
               <FiHeart className="text-2xl cursor-pointer" />
@@ -97,7 +96,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Səbət İkonu */}
+       
           <div className="relative">
             <FiShoppingCart className="text-2xl cursor-pointer" onClick={toggleSidebar} />
             <span className="absolute top-[-8px] right-[-8px] text-xs bg-black text-white rounded-full w-4 h-4 flex items-center justify-center">
@@ -107,7 +106,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Navigation */}
+
       <nav className="bg-white border-t relative h-[2rem]">
         <div className="flex px-14 py-2 mt-2">
           <div className="flex justify-between items-center space-x-8 w-full">
@@ -222,7 +221,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex">
-                  <Link href="#" className="underline-animation cursor-pointer">
+                  <Link href="/blogs" className="underline-animation cursor-pointer">
                     BLOGS
                   </Link>
                   <span className="mt-1">
@@ -238,6 +237,8 @@ export default function Navbar() {
                     <LuChevronDown />
                   </span>
                 </div>
+                
+
               </div>
             </div>
 

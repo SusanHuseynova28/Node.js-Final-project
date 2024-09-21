@@ -1,13 +1,12 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
 import { Collection } from "@/app/types/collection";
-// Import yolunu dəyişdik
 import CartSidebar from "../sidebar/CardSidebar";
 
-export default function CollectionGrid({ addToHeader }: { addToHeader: (item: Collection) => void }) {
+export default function AutumnCollection({ addToHeader }: { addToHeader: (item: Collection) => void }) {
   const [collections, setCollections] = useState<Collection[]>([]);
   const [cartItems, setCartItems] = useState<Collection[]>([]);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -15,9 +14,9 @@ export default function CollectionGrid({ addToHeader }: { addToHeader: (item: Co
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/collections");
+        const response = await fetch("http://localhost:3001/api/autumncollection");
         const data: Collection[] = await response.json();
-        setCollections(data.slice(0, 8)); // Updated to show 8 cards
+        setCollections(data.slice(0, 8)); // Show 8 cards
       } catch (error) {
         console.error("Kolleksiyaları yükləyərkən xəta baş verdi:", error);
       }
@@ -52,10 +51,10 @@ export default function CollectionGrid({ addToHeader }: { addToHeader: (item: Co
 
   return (
     <div className="container mx-auto py-8 relative">
-      <h2 className="text-center text-3xl mb-4">Trendy Collection</h2>
+      <h2 className="text-center text-3xl mb-4">Autumn Collection</h2>
       <p className="text-center mb-8">Collect your loves with our newest arrivals.</p>
 
-      {/* Kolleksiyaları göstərən Swiper */}
+      
       <Swiper
         spaceBetween={20}
         slidesPerView={4}
@@ -66,9 +65,15 @@ export default function CollectionGrid({ addToHeader }: { addToHeader: (item: Co
         }}
         className="relative group p-4 max-w-7xl mx-auto"
       >
-        {collections.map((collection) => (
+        {collections.map((collection, index) => (
           <SwiperSlide key={collection._id}>
             <div className="relative overflow-hidden transition-transform duration-300">
+              {/* 2-ci və 4-cü şəkillərdə "New" yazısını göstər */}
+              {(index === 1 || index === 3) && (
+                <div className="absolute top-4 left-2 bg-blue-900 text-white px-2 py-1 text-xs font-bold z-10">
+                  NEW
+                </div>
+              )}
               <img
                 src={collection.imageUrl}
                 alt={collection.title}

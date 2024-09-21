@@ -1,6 +1,6 @@
 export default function FindStore() {
     return (
-      <div className="bg-[#f9ebf9] w-[75%] py-6 flex justify-center items-center mx-auto mt-10">
+      <div className="bg-[#f9ebf9] w-[85%] py-6 flex justify-center items-center mx-auto mt-10">
         <div className="flex items-center space-x-4">
           <span className="text-gray-700 flex items-center">
             <svg

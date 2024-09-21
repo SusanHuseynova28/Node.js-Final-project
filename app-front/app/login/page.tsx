@@ -1,7 +1,9 @@
 'use client';
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link"; // Import Link for navigation
+import Link from "next/link";
+import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
 
 const Login = () => {
   const [data, setData] = useState<{ username: string; password: string }>({
@@ -29,56 +31,95 @@ const Login = () => {
       if (!response.ok) {
         const errorData = await response.json();
         setError(`Error ${response.status}: ${errorData.message || "Login failed"}`);
+        
+        // Show error toast
+        toast.error(errorData.message || "Login failed. Please try again.");
         return;
       }
 
       const resData = await response.json();
       localStorage.setItem("token", resData.token);
 
+      // Show success toast
+      toast.success("Login successful!");
+
       // Redirect to home page after successful login
-      router.push("/home");
+      setTimeout(() => {
+        router.push("/home");
+      }, 2000); // Delay to allow toast to be displayed
     } catch (error) {
       setError(`An error occurred: ${(error as Error).message}`);
+
+      // Show error toast
+      toast.error("An error occurred. Please try again.");
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-400 to-purple-500">
-      <div className="w-[400px] p-8 bg-white rounded-lg shadow-lg">
-        <form onSubmit={handleSubmit} className="flex flex-col">
-          <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
-          <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={handleChange}
-            value={data.username}
-            required
-            className="p-3 mb-4 border-b-2 border-gray-300 focus:outline-none"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black to-white">
+      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg flex">
+        {/* Left Side: Login Form */}
+        <div className="w-1/2 p-8">
+          <form onSubmit={handleSubmit} className="flex flex-col">
+            <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+            <input
+              type="text"
+              placeholder="Email Address"
+              name="username"
+              onChange={handleChange}
+              value={data.username}
+              required
+              className="p-3 mb-4 border-b-2 border-gray-300 focus:outline-none"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              onChange={handleChange}
+              value={data.password}
+              required
+              className="p-3 mb-6 border-b-2 border-gray-300 focus:outline-none"
+            />
+            {error && <div className="text-red-500 mb-4">{error}</div>}
+            <div className="flex justify-between items-center mb-4">
+              <label className="flex items-center text-sm text-gray-600">
+                <input type="checkbox" className="mr-2" />
+                Remember me
+              </label>
+              <Link href="/forgot-password" className="text-blue-500 text-sm">
+                Forgot Password?
+              </Link>
+            </div>
+            <button
+              type="submit"
+              className="p-3 mb-4 bg-black text-white font-bold rounded-md"
+            >
+              Login
+            </button>
+            <div className="flex justify-between text-sm text-gray-600">
+              <Link href="/" className="text-black">
+                Don't have an account?
+              </Link>
+              <Link href="/signup" className="text-blue-500">
+                Sign Up
+              </Link>
+            </div>
+          </form>
+        </div>
+
+        {/* Right Side: Illustration */}
+        <div className="w-1/2 flex items-center justify-center flex-col">
+          <span className="text-3xl font-semibold">Alukas Collection</span>
+          <img
+            src="https://demo-alukas.myshopify.com/cdn/shop/files/alk1_5.jpg?v=1710149492"
+            alt="Illustration"
+            className="w-3/4 mt-4"
           />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={handleChange}
-            value={data.password}
-            required
-            className="p-3 mb-6 border-b-2 border-gray-300 focus:outline-none"
-          />
-          {error && <div className="text-red-500 mb-4">{error}</div>}
-          <button
-            type="submit"
-            className="p-3 mb-4 bg-blue-500 text-white font-bold rounded-md"
-          >
-            Login
-          </button>
-          {/* Sign Up Link Restored */}
-          <div className="flex justify-between text-sm text-gray-600 mt-4">
-            <Link href="/forgot-password" className="text-blue-500">Forgot Password?</Link>
-            <Link href="/signup" className="text-blue-500">Don't have an account? Sign Up</Link>
-          </div>
-        </form>
+        </div>
       </div>
+
+      {/* Toastify container */}
+      <ToastContainer />
     </div>
   );
 };
