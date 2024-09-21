@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import React from 'react';
 import { FiX, FiShoppingCart, FiTruck } from 'react-icons/fi';
 
 const CardSidebar = ({ isSidebarOpen, toggleSidebar, cartItems, removeFromCart }) => {
-  
+
   const items = cartItems || [];
 
   return (
