@@ -5,6 +5,7 @@ import { Collection } from '@/app/types/collection';
 import Navbar from '../_featured/header';
 import Footer from '../_featured/footer';
 import { FaTrash, FaEdit } from 'react-icons/fa';
+import ContactAdminPanel from '../_components/ContactAdminPanel';
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -234,6 +235,7 @@ export default function AdminPanel() {
           </div>
         )}
       </div>
+      
       <Footer />
     </>
   );

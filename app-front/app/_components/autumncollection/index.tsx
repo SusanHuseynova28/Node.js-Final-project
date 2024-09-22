@@ -50,7 +50,7 @@ export default function AutumnCollection({ addToHeader }: { addToHeader: (item: 
   };
 
   return (
-    <div className="container mx-auto py-8 relative">
+    <div className="container mx-auto py-8 relative mt-10">
       <h2 className="text-center text-3xl mb-4">Autumn Collection</h2>
       <p className="text-center mb-8">Collect your loves with our newest arrivals.</p>
 

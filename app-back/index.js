@@ -9,6 +9,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const collectionRoutes = require("./routes/collectionRoutes");
 const autumncollectionRoutes = require("./routes/autumncollectionRoutes");
 const featuredproductsRoutes = require("./routes/featuredproductsRoutes");
+const contactRoutes = require('./routes/contactRoutes');
 
 const app = express();
 app.use('/uploads', express.static('uploads'));
@@ -24,6 +25,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/collections", collectionRoutes);
 app.use("/api/autumncollection", autumncollectionRoutes); 
 app.use("/api/featuredproducts",featuredproductsRoutes);
+app.use('/api/contact', contactRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Server is running on port ${port}...`));

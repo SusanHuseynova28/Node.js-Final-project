@@ -9,6 +9,8 @@ import AutumnCollection from "../_components/autumncollection";
 import HeroSection from "../_components/HeroSection";
 import FeaturedProducts from "../_components/featuredproducts";
 import CustomerReviewSwiper from "../_components/CustomerReviewSwiper";
+import JournalPage from "../_components/JournalPage";
+import InstagramGallery from "../_components/InstagramGallery";
 
 export default function Homepage(){
     return(
@@ -23,6 +25,8 @@ export default function Homepage(){
         <HeroSection/>
         <FeaturedProducts/>
         <CustomerReviewSwiper/>
+        <JournalPage/>
+        <InstagramGallery/>
         <Footer/>
         </>
     )

@@ -4,7 +4,7 @@ import React from 'react';
 import { FiChevronRight } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
 
-const ContactPage = () => {
+const ContactPageMap = () => {
 
     const router = useRouter();
 
@@ -79,4 +79,4 @@ const ContactPage = () => {
   );
 };
 
-export default ContactPage;
+export default ContactPageMap;

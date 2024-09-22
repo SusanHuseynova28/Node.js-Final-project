@@ -51,7 +51,7 @@ export default function CustomerReviewSwiper() {
 
   return (
     <div
-      className="container mx-auto py-14 bg-cover bg-center mt-10"
+      className="container mx-auto py-14 bg-cover bg-center mt-10  "
       style={{
         backgroundImage: `url('https://demo-alukas.myshopify.com/cdn/shop/files/alk_bg_testi.jpg?v=1711954099')`,
       }}
