@@ -107,8 +107,7 @@ export default function CollectionGrid({ addToHeader }: { addToHeader: (item: Co
         ))}
       </Swiper>
 
-      {/* Kart sidebar */}
-      <CartSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={() => setSidebarOpen(false)} cartItems={cartItems} removeItem={handleRemoveFromCart} />
+     
     </div>
   );
 }

@@ -2,8 +2,8 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Login = () => {
   const [data, setData] = useState<{ username: string; password: string }>({
@@ -38,7 +38,10 @@ const Login = () => {
       }
 
       const resData = await response.json();
+      
+      // Token və istifadəçi adını localStorage-a yazın
       localStorage.setItem("token", resData.token);
+      localStorage.setItem("username", data.username);  // Username saxlanır
 
       // Show success toast
       toast.success("Login successful!");

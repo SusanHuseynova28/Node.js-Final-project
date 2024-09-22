@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const AutumnCollectionSchema = new mongoose.Schema({
+const FeaturedProductsSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -39,4 +39,4 @@ const AutumnCollectionSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('AutumnCollection', AutumnCollectionSchema);
+module.exports = mongoose.model('FeaturedProducts', FeaturedProductsSchema);

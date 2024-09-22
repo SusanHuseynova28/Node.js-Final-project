@@ -6,7 +6,7 @@ import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
 import { Collection } from "@/app/types/collection";
 
 
-export default function AutumnCollection({ addToHeader }: { addToHeader: (item: Collection) => void }) {
+export default function FeaturedProducts({ addToHeader }: { addToHeader: (item: Collection) => void }) {
   const [collections, setCollections] = useState<Collection[]>([]);
   const [cartItems, setCartItems] = useState<Collection[]>([]);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -14,7 +14,7 @@ export default function AutumnCollection({ addToHeader }: { addToHeader: (item: 
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/autumncollection");
+        const response = await fetch("http://localhost:3001/api/featuredproducts");
         const data: Collection[] = await response.json();
         setCollections(data.slice(0, 8)); // Show 8 cards
       } catch (error) {
@@ -27,7 +27,7 @@ export default function AutumnCollection({ addToHeader }: { addToHeader: (item: 
 
   const handleAddToCart = (item: Collection) => {
     setCartItems((prevItems) => [...prevItems, item]);
-    setSidebarOpen(true); // Kart əlavə edilərkən sidebar açılır
+    setSidebarOpen(true); 
   };
 
   const handleRemoveFromCart = (itemId: string) => {
@@ -51,7 +51,7 @@ export default function AutumnCollection({ addToHeader }: { addToHeader: (item: 
 
   return (
     <div className="container mx-auto py-8 relative">
-      <h2 className="text-center text-3xl mb-4">Autumn Collection</h2>
+      <h2 className="text-center text-3xl mb-4">Featured Products</h2>
       <p className="text-center mb-8">Collect your loves with our newest arrivals.</p>
 
       
@@ -69,10 +69,15 @@ export default function AutumnCollection({ addToHeader }: { addToHeader: (item: 
           <SwiperSlide key={collection._id}>
             <div className="relative overflow-hidden transition-transform duration-300">
               {/* 2-ci və 4-cü şəkillərdə "New" yazısını göstər */}
-              {(index === 1 || index === 3) && (
-                <div className="absolute top-4 left-2 bg-blue-900 text-white px-2 py-1 text-xs font-bold z-10">
-                  NEW
+              {(index === 0 || index === 2) && (
+                <>
+                <div className="absolute top-4 left-3 bg-red-700 text-white px-2 py-1 text-xs font-bold z-10">
+                  -20%
                 </div>
+                 <div className="absolute top-12 left-3 bg-blue-700 text-white px-2 py-1 text-xs font-bold z-10">
+                 Hot
+               </div>
+               </>
               )}
               <img
                 src={collection.imageUrl}

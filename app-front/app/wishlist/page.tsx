@@ -7,7 +7,7 @@ import Footer from "../_featured/footer";
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<Collection[]>([]);
 
-  // Wishlist-dən məlumatları oxumaq
+
   useEffect(() => {
     const savedWishlist = localStorage.getItem("wishlist");
     if (savedWishlist) {
@@ -15,7 +15,6 @@ export default function WishlistPage() {
     }
   }, []);
 
-  // Məhsulu wishlist-dən silən funksiya
   const removeFromWishlist = (id: string) => {
     const updatedWishlist = wishlist.filter((item) => item._id !== id);
     setWishlist(updatedWishlist);

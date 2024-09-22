@@ -109,7 +109,7 @@ export default function AdminPanel() {
       <div className="container mx-auto py-8">
        
 
-        {/* Search Bar */}
+      
         <div className="text-center mb-8 flex justify-between gap-4 p-6 ">
           <input
             type="text"
@@ -123,7 +123,7 @@ export default function AdminPanel() {
           </button>
         </div>
 
-        {/* Table */}
+      
         <table className="w-full border text-left">
           <thead>
             <tr className="bg-gray-100">
