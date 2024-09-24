@@ -3,7 +3,6 @@ import useSWR from "swr";
 import { useState } from "react";
 import { Collection } from "@/app/types/collection";
 import Navbar from "../_featured/header";
-
 import Footer from "../_featured/footer";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
@@ -50,7 +49,6 @@ export default function AdminPanel() {
     if (imageFile) {
       formData.append("image", imageFile);
     }
-    console.log(formData);
 
     const response = await fetch("http://localhost:3001/api/collections", {
       method: "POST",
@@ -58,7 +56,7 @@ export default function AdminPanel() {
     });
 
     if (response.ok) {
-      mutate();
+      await mutate(); // Ensure data is updated after the mutation
       setNewItem({
         title: "",
         price: "",
@@ -69,6 +67,8 @@ export default function AdminPanel() {
       setImageFile(null);
       setPreviewImage(null);
       setIsCreateModalOpen(false);
+    } else {
+      console.error("Failed to add item.");
     }
   };
 
@@ -81,7 +81,9 @@ export default function AdminPanel() {
     );
 
     if (response.ok) {
-      mutate();
+      await mutate(); // Refresh data after deletion
+    } else {
+      console.error("Failed to delete item.");
     }
   };
 
@@ -110,9 +112,11 @@ export default function AdminPanel() {
     );
 
     if (response.ok) {
-      mutate();
+      await mutate(); // Ensure data is updated after edit
       setEditingItem(null);
       setIsEditModalOpen(false);
+    } else {
+      console.error("Failed to save changes.");
     }
   };
 
@@ -187,6 +191,7 @@ export default function AdminPanel() {
           </tbody>
         </table>
 
+        {/* Create Modal */}
         {isCreateModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -249,6 +254,7 @@ export default function AdminPanel() {
           </div>
         )}
 
+        {/* Edit Modal */}
         {isEditModalOpen && editingItem && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">

@@ -78,10 +78,10 @@ export default function ProductPage() {
       <Navbar />
       <div className="container mx-auto py-8 flex flex-col lg:flex-row space-x-0 lg:space-x-8 mt-10 p-14">
         <div className="flex flex-col w-full lg:w-1/2 space-y-4 lg:space-y-0 lg:space-x-4 lg:flex-row">
-          <div className="flex flex-col space-y-4 lg:space-y-4 w-20 lg:w-1/5">
+          <div className="flex flex-col space-y-4 lg:space-y-4 w-16 lg:w-1/5">
             <img
               src={product.imageUrl}
-              className={`w-20 h-20 object-cover border ${
+              className={`w-16 h-16 object-cover border ${
                 selectedImage === product.imageUrl
                   ? "border-black"
                   : "border-gray-200"
@@ -91,7 +91,7 @@ export default function ProductPage() {
             />
             <img
               src={product.hoverImageUrl}
-              className={`w-20 h-20 object-cover border ${
+              className={`w-16 h-16 object-cover border ${
                 selectedImage === product.hoverImageUrl
                   ? "border-black"
                   : "border-gray-200"
@@ -104,25 +104,26 @@ export default function ProductPage() {
             <img
               src={selectedImage}
               alt={product.title}
-              className="object-cover w-full h-auto rounded-lg shadow-md"
+              className="object-cover w-full h-auto shadow-md"
             />
           </div>
         </div>
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-1/2 space-y-6">
           <h2 className="text-3xl font-bold">{product.title}</h2>
-          <p className="text-lg mt-2 text-gray-500">
-            3 reviews |{" "}
-            <span className="text-red-500">17 sold in last 16 hours</span>
-          </p>
+          <div className="flex items-center space-x-2 text-sm">
+            <p className="text-gray-500">3 reviews</p>
+            <span className="text-gray-300">|</span>
+            <p className="text-red-500">17 sold in last 16 hours</p>
+          </div>
           <p className="text-2xl font-semibold mt-4">${product.price}</p>
           <p className="mt-4">{product.description}</p>
           <p className="text-sm text-gray-500 mt-4">
             18 people are viewing this right now
           </p>
-          <div className="mt-6">
+          <div className="mt-6 border-t border-gray-300 pt-4">
             <h3 className="font-semibold mb-2">Add your personalization</h3>
             <p className="text-sm text-gray-500 mb-2">
-              Add your name, note or upload your customized idea image to
+              Add your name, note, or upload your customized idea image to
               personalize your item. Custom items cannot be returned or
               exchanged.
             </p>
@@ -145,7 +146,7 @@ export default function ProductPage() {
               Hurry Up! Only <span>10</span> left in stock!
             </p>
           </div>
-          <div className="mt-6">
+          <div className="mt-6 border-t border-gray-300 pt-4">
             <h3 className="font-semibold mb-2">Purchase Options</h3>
             <div className="flex items-center mb-2">
               <input
