@@ -1,6 +1,6 @@
 const Collection = require('../models/autumncollection');
 
-// Get all collection cards
+
 exports.getAllCollections = async (req, res) => {
     try {
         const collections = await Collection.find();
@@ -10,7 +10,7 @@ exports.getAllCollections = async (req, res) => {
     }
 };
 
-// Get a single collection card by ID
+
 exports.getCollectionById = async (req, res) => {
     try {
         const collection = await Collection.findById(req.params.id);
@@ -23,7 +23,7 @@ exports.getCollectionById = async (req, res) => {
     }
 };
 
-// Create a new collection card
+
 exports.createCollection = async (req, res) => {
     try {
         const newCollection = new Collection(req.body);
@@ -34,7 +34,7 @@ exports.createCollection = async (req, res) => {
     }
 };
 
-// Update an existing collection card
+
 exports.updateCollection = async (req, res) => {
     try {
         const updatedCollection = await Collection.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -47,7 +47,7 @@ exports.updateCollection = async (req, res) => {
     }
 };
 
-// Delete a collection card
+
 exports.deleteCollection = async (req, res) => {
     try {
         const deletedCollection = await Collection.findByIdAndDelete(req.params.id);

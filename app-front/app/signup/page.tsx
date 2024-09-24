@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link"; 
-import { ToastContainer, toast } from 'react-toastify'; // Import Toastify
-import 'react-toastify/dist/ReactToastify.css';  // Import Toastify CSS
+import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const [data, setData] = useState({
@@ -33,7 +33,6 @@ const Signup = () => {
         const errorData = await response.json();
         setError(errorData.message || "Something went wrong");
 
-        // Show error toast message
         toast.error(errorData.message || "Signup failed. Please try again.");
         return;
       }
@@ -41,17 +40,14 @@ const Signup = () => {
       const resData = await response.json();
       console.log("Signup successful:", resData);
 
-      // Show success toast message
       toast.success("Signup successful!");
 
-      // Redirect to login page after signup
       setTimeout(() => {
         router.push("/login");
-      }, 2000); // Redirect after 2 seconds to give time for the toast to show
+      }, 2000);
     } catch (error) {
       setError("Something went wrong. Please try again later.");
 
-      // Show error toast message
       toast.error("Something went wrong. Please try again later.");
     }
   };
@@ -59,10 +55,11 @@ const Signup = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black  to-white">
       <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg flex">
-        {/* Left Side: Signup Form */}
         <div className="w-1/2 p-8">
           <form onSubmit={handleSubmit} className="flex flex-col">
-            <h1 className="text-3xl font-bold text-center mb-6">Create Account</h1>
+            <h1 className="text-3xl font-bold text-center mb-6">
+              Create Account
+            </h1>
             <input
               type="text"
               placeholder="Username"
@@ -117,14 +114,17 @@ const Signup = () => {
             </button>
             <div className="flex justify-between text-sm text-gray-600 mt-4">
               <span>Already have an account?</span>
-              <Link href="/login" className="text-blue-500">Sign in</Link>
+              <Link href="/login" className="text-blue-500">
+                Sign in
+              </Link>
             </div>
           </form>
         </div>
 
-        {/* Right Side: Illustration */}
         <div className="w-1/2 flex items-center justify-center flex-col">
-          <span className="text-3xl font-semibold mb-10">Alukas Collection</span>
+          <span className="text-3xl font-semibold mb-10">
+            Alukas Collection
+          </span>
           <img
             src="https://demo-alukas.myshopify.com/cdn/shop/files/alk1_4.jpg?v=1710149492"
             alt="Illustration"
@@ -133,7 +133,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Toastify container */}
       <ToastContainer />
     </div>
   );

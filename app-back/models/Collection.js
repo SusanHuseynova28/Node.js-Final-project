@@ -13,11 +13,11 @@ const CollectionSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    imageUrl: { // Normal image
+    imageUrl: { 
         type: String,
         required: true
     },
-    hoverImageUrl: { // Hover image
+    hoverImageUrl: { 
         type: String,
         required: true
     },

@@ -2,8 +2,8 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination"; // Import Pagination styles
-import { Pagination } from "swiper/modules"; // Import Pagination module
+import "swiper/css/pagination"; 
+import { Pagination } from "swiper/modules"; 
 
 export default function CustomerReviewSwiper() {
   const reviews = [
@@ -58,17 +58,17 @@ export default function CustomerReviewSwiper() {
     >
       <h2 className="text-center text-3xl  mb-10">Customer Review</h2>
       <Swiper
-        slidesPerView={3} // Show 3 cards initially
+        slidesPerView={3} 
         spaceBetween={30}
         pagination={{
           clickable: true,
         }}
         breakpoints={{
           640: {
-            slidesPerView: 1, // 1 card on small screens
+            slidesPerView: 1, 
           },
           1024: {
-            slidesPerView: 3, // Show 3 cards on medium/large screens
+            slidesPerView: 3, 
           },
         }}
         modules={[Pagination]}
@@ -83,19 +83,19 @@ export default function CustomerReviewSwiper() {
               <h4 className="text-xl mb-4 ">{review.title}</h4>
               <p className="text-gray-600 mb-4 text-center">{review.review}</p>
               <div className="flex gap-16">
-              <p className="text-gray-500 italic mb-4">- {review.name} -</p>
-              <div className="flex justify-center">
-                {Array.from({ length: review.rating }, (_, i) => (
-                  <svg
-                    key={i}
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 text-orange-500"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
-                  </svg>
-                ))}
+                <p className="text-gray-500 italic mb-4">- {review.name} -</p>
+                <div className="flex justify-center">
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <svg
+                      key={i}
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5 text-orange-500"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 17.27l6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73-1.64 7.03z" />
+                    </svg>
+                  ))}
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
-import HomeSwiper from "../_components/SwipperHomePage"; // Ensure correct path
-import Navbar from "../_featured/header"; // Check if _featured/header exists
+'use client'
+import HomeSwiper from "../_components/SwipperHomePage";
+import Navbar from "../_featured/header";
 import Footer from "../_featured/footer";
 import ProductCards from "../_components/ProductCards";
 import CategoryList from "../_components/CategoryList";
@@ -11,23 +12,34 @@ import FeaturedProducts from "../_components/featuredproducts";
 import CustomerReviewSwiper from "../_components/CustomerReviewSwiper";
 import JournalPage from "../_components/JournalPage";
 import InstagramGallery from "../_components/InstagramGallery";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-export default function Homepage(){
-    return(
-        <>
-        <Navbar/>
-        <HomeSwiper/>
-        <ProductCards/>
-        <CategoryList/>
-        <CollectionGrid/>
-        <FindStore/>
-        <AutumnCollection/>
-        <HeroSection/>
-        <FeaturedProducts/>
-        <CustomerReviewSwiper/>
-        <JournalPage/>
-        <InstagramGallery/>
-        <Footer/>
-        </>
-    )
+export default function Homepage() {
+  const router  = useRouter()
+  const user = localStorage.getItem("token")
+
+
+  useEffect(()=>{
+    if(!user){
+      router.push("/login")
+    }
+  },[user])
+  return (
+    <>
+      <Navbar />
+      <HomeSwiper />
+      <ProductCards />
+      <CategoryList />
+      <CollectionGrid />
+      <FindStore />
+      <AutumnCollection />
+      <HeroSection />
+      <FeaturedProducts />
+      <CustomerReviewSwiper />
+      <JournalPage />
+      <InstagramGallery />
+      <Footer />
+    </>
+  );
 }

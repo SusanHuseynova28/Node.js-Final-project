@@ -1,9 +1,9 @@
-'use client';
+"use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { ToastContainer, toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [data, setData] = useState<{ username: string; password: string }>({
@@ -30,30 +30,27 @@ const Login = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(`Error ${response.status}: ${errorData.message || "Login failed"}`);
-        
-        // Show error toast
+        setError(
+          `Error ${response.status}: ${errorData.message || "Login failed"}`
+        );
+
         toast.error(errorData.message || "Login failed. Please try again.");
         return;
       }
 
       const resData = await response.json();
-      
-      // Token və istifadəçi adını localStorage-a yazın
-      localStorage.setItem("token", resData.token);
-      localStorage.setItem("username", data.username);  // Username saxlanır
 
-      // Show success toast
+      localStorage.setItem("token", resData.token);
+      localStorage.setItem("username", data.username);
+
       toast.success("Login successful!");
 
-      // Redirect to home page after successful login
       setTimeout(() => {
         router.push("/home");
-      }, 2000); // Delay to allow toast to be displayed
+      }, 2000);
     } catch (error) {
       setError(`An error occurred: ${(error as Error).message}`);
 
-      // Show error toast
       toast.error("An error occurred. Please try again.");
     }
   };
@@ -61,7 +58,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black to-white">
       <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg flex">
-        {/* Left Side: Login Form */}
         <div className="w-1/2 p-8">
           <form onSubmit={handleSubmit} className="flex flex-col">
             <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
@@ -110,7 +106,6 @@ const Login = () => {
           </form>
         </div>
 
-        {/* Right Side: Illustration */}
         <div className="w-1/2 flex items-center justify-center flex-col">
           <span className="text-3xl font-semibold">Alukas Collection</span>
           <img
@@ -121,7 +116,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Toastify container */}
       <ToastContainer />
     </div>
   );

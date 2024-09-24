@@ -1,40 +1,48 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 
-// Məlumatları formdan götürən və valideynə göndərən komponent
 interface ContactFormProps {
-  onSubmit: (formData: { name: string; email: string; subject: string; message: string }) => void;
+  onSubmit: (formData: {
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+  }) => void;
 }
 
 export default function ContactForm({ onSubmit }: ContactFormProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (typeof onSubmit === 'function') {
-      onSubmit(formData);  // Valideyn komponentdən gələn onSubmit funksiyasını çağırırıq
-      setFormData({ name: '', email: '', subject: '', message: '' });  // Formu sıfırlayırıq
+    if (typeof onSubmit === "function") {
+      onSubmit(formData);
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } else {
-      console.error('onSubmit is not a function');
+      console.error("onSubmit is not a function");
     }
   };
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h2 className="text-4xl text-center mb-8">Have a question? Contact us!</h2>
+      <h2 className="text-4xl text-center mb-8">
+        Have a question? Contact us!
+      </h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
         <input
           className="p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"

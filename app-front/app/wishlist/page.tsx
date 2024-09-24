@@ -7,7 +7,6 @@ import Footer from "../_featured/footer";
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<Collection[]>([]);
 
-
   useEffect(() => {
     const savedWishlist = localStorage.getItem("wishlist");
     if (savedWishlist) {
@@ -29,7 +28,6 @@ export default function WishlistPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {wishlist.map((item) => (
             <div key={item._id} className="relative  p-4 w-[270px] ">
-             
               <button
                 className="absolute top-2 right-2 cursor-pointer text-xl"
                 onClick={() => removeFromWishlist(item._id)}
@@ -41,7 +39,9 @@ export default function WishlistPage() {
                 alt={item.title}
                 className="w-full h-48 object-cover"
               />
-              <h3 className="text-sm font-medium uppercase mt-2">{item.description}</h3>
+              <h3 className="text-sm font-medium uppercase mt-2">
+                {item.description}
+              </h3>
               <p className="text-gray-600">{item.title}</p>
               <p className="text-lg font-bold">${item.price}</p>
             </div>

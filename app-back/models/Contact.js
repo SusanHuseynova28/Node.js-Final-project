@@ -5,7 +5,7 @@ const contactSchema = new mongoose.Schema({
   email: { type: String, required: true },
   subject: { type: String },
   message: { type: String, required: true }
-}, { timestamps: true });  // timestamps sahəsini əlavə etdik, hər kontakt yaradılma və yenilənmə tarixini qeyd edir.
+}, { timestamps: true });  
 
 const Contact = mongoose.model('Contact', contactSchema);
 

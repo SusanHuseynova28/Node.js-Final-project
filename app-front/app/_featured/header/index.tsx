@@ -11,39 +11,38 @@ import {
 import { LuChevronDown } from "react-icons/lu";
 import { MdOutlineLocalPhone } from "react-icons/md";
 import { FiMapPin } from "react-icons/fi";
-import { useRouter } from "next/navigation"; // Router for logout
+import { useRouter } from "next/navigation";
 import CardSidebar from "@/app/_components/sidebar/CardSidebar";
 
 export default function Navbar() {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // User menu state
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isHomeHovered, setIsHomeHovered] = useState(false);
   const [isPagesHovered, setIsPagesHovered] = useState(false);
   const [wishlistCount, setWishlistCount] = useState(0);
-  const [username, setUsername] = useState<string | null>(null); // User state
-  const router = useRouter(); // Router for logout
+  const [username, setUsername] = useState<string | null>(null);
+  const router = useRouter();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
   };
 
   const toggleUserMenu = () => {
-    setIsUserMenuOpen(!isUserMenuOpen); // Toggle user menu visibility
+    setIsUserMenuOpen(!isUserMenuOpen);
   };
 
   useEffect(() => {
-    // Get username from localStorage
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
-      setUsername(storedUsername); // Set username if found
+      setUsername(storedUsername);
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove token from localStorage
-    localStorage.removeItem("username"); // Remove username from localStorage
-    setUsername(null); // Reset username
-    router.push("/login"); // Redirect to login page
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setUsername(null);
+    router.push("/login");
   };
 
   useEffect(() => {
@@ -127,7 +126,6 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-6">
-          {/* User Icon with dropdown */}
           <div className="relative">
             <FiUser
               className="text-2xl cursor-pointer"
@@ -155,7 +153,6 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Wishlist Icon */}
           <div className="relative">
             <Link href="/wishlist">
               <FiHeart className="text-2xl cursor-pointer" />
@@ -165,7 +162,6 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Shopping Cart Icon */}
           <div className="relative">
             <FiShoppingCart
               className="text-2xl cursor-pointer"

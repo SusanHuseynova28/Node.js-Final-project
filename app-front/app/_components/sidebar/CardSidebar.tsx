@@ -19,13 +19,14 @@ export default function CardSidebar({
         }`}
       >
         <div className="p-4 flex items-center justify-between border-b">
-          <h2 className="text-lg font-semibold">Shopping Cart ({items.length})</h2>
+          <h2 className="text-lg font-semibold">
+            Shopping Cart ({items.length})
+          </h2>
           <button onClick={toggleSidebar} className="text-gray-500 text-xl">
             <FiX size={20} />
           </button>
         </div>
 
-        {/* Free Shipping Progress Bar */}
         <div className="p-4 bg-gray-100 border-b">
           <div className="relative flex items-center ml-3 mt-5 mb-5">
             <div className="absolute flex items-center justify-center w-10 h-10 border-2 border-red-500 rounded-full bg-white">
@@ -33,7 +34,10 @@ export default function CardSidebar({
             </div>
             <div className="flex-1 ml-4">
               <div className="w-[95%] h-1 bg-gray-300 rounded">
-                <div className="bg-red-500 h-full rounded" style={{ width: "30%" }}></div>
+                <div
+                  className="bg-red-500 h-full rounded"
+                  style={{ width: "30%" }}
+                ></div>
               </div>
             </div>
           </div>
@@ -42,7 +46,6 @@ export default function CardSidebar({
           </span>
         </div>
 
-        {/* Cart Items Section */}
         <div className="p-4 flex-1 overflow-y-auto">
           {items.length === 0 ? (
             <div className="text-center mt-8">
@@ -51,15 +54,25 @@ export default function CardSidebar({
               </div>
               <p className="text-black text-lg">Your cart is empty.</p>
               <p className="text-black text-sm mt-2">
-                You may check out all the available products and buy some in the shop.
+                You may check out all the available products and buy some in the
+                shop.
               </p>
-              <button className="mt-4 bg-black w-[9rem] text-white py-2">Return to shop</button>
+              <button className="mt-4 bg-black w-[9rem] text-white py-2">
+                Return to shop
+              </button>
             </div>
           ) : (
             <div>
               {items.map((item, index) => (
-                <div key={index} className="flex items-center justify-between mb-4">
-                  <img src={item.imageUrl} alt={item.title} className="w-16 h-16 object-cover rounded-md" />
+                <div
+                  key={index}
+                  className="flex items-center justify-between mb-4"
+                >
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover rounded-md"
+                  />
                   <div className="ml-4 flex-1">
                     <p className="font-medium text-sm">{item.title}</p>
                     <p className="text-sm text-gray-600">${item.price}</p>
@@ -79,7 +92,10 @@ export default function CardSidebar({
                       </button>
                     </div>
                   </div>
-                  <button className="text-red-500 hover:text-red-300" onClick={() => removeFromCart(item.id)}>
+                  <button
+                    className="text-red-500 hover:text-red-300"
+                    onClick={() => removeFromCart(item.id)}
+                  >
                     <FiTrash />
                   </button>
                 </div>
@@ -89,9 +105,11 @@ export default function CardSidebar({
         </div>
       </div>
 
-      {/* Background Overlay */}
       {isSidebarOpen && (
-        <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleSidebar}></div>
+        <div
+          className="fixed inset-0 bg-black opacity-50 z-40"
+          onClick={toggleSidebar}
+        ></div>
       )}
     </>
   );

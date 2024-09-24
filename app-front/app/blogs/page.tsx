@@ -5,7 +5,7 @@ import { Collection } from '@/app/types/collection';
 import Navbar from '../_featured/header';
 import Footer from '../_featured/footer';
 import { FaTrash, FaEdit } from 'react-icons/fa';
-import ContactAdminPanel from '../_components/ContactAdminPanel';
+
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -16,66 +16,67 @@ export default function AdminPanel() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null); // For image preview
+  const [previewImage, setPreviewImage] = useState<string | null>(null); 
   const [searchQuery, setSearchQuery] = useState("");
 
   if (!collections) return <div>Loading collections...</div>;
 
-  // Function to handle image preview
+ 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result as string); // Set preview image
+        setPreviewImage(reader.result as string); 
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // Function to add a new item
+
   const addNewItem = async () => {
     const formData = new FormData();
     formData.append("title", newItem.title);
     formData.append("price", newItem.price);
     formData.append("description", newItem.description);
     if (imageFile) {
-      formData.append("image", imageFile); // Upload image file
+      formData.append("image", imageFile); 
     }
+    console.log(formData)
 
     const response = await fetch('http://localhost:3001/api/collections', {
       method: 'POST',
-      body: formData, // Send FormData with the image
+      body: formData, 
     });
 
     if (response.ok) {
-      mutate(); // Refreshes the data in Swiper and table
+      mutate(); 
       setNewItem({ title: '', price: '', description: '', imageUrl: '', hoverImageUrl: '' });
-      setImageFile(null); // Reset file input
-      setPreviewImage(null); // Clear preview image
-      setIsCreateModalOpen(false); // Closes modal after adding
+      setImageFile(null);
+      setPreviewImage(null); 
+      setIsCreateModalOpen(false); 
     }
   };
 
-  // Function to delete an item
+
   const deleteItem = async (id: string) => {
     const response = await fetch(`http://localhost:3001/api/collections/${id}`, {
       method: 'DELETE',
     });
 
     if (response.ok) {
-      mutate(); // Refreshes the table
+      mutate(); 
     }
   };
 
-  // Function to open the edit modal and set the current editing item
+
   const startEditing = (item: Collection) => {
     setEditingItem(item);
     setIsEditModalOpen(true);
   };
 
-  // Function to save edited item
+ 
   const saveItem = async () => {
     if (!editingItem) return;
 
@@ -84,7 +85,7 @@ export default function AdminPanel() {
     formData.append("price", editingItem.price);
     formData.append("description", editingItem.description);
     if (imageFile) {
-      formData.append("image", imageFile); // Upload image file
+      formData.append("image", imageFile); 
     }
 
     const response = await fetch(`http://localhost:3001/api/collections/${editingItem._id}`, {
@@ -93,13 +94,13 @@ export default function AdminPanel() {
     });
 
     if (response.ok) {
-      mutate(); // Refreshes the data
+      mutate(); 
       setEditingItem(null);
-      setIsEditModalOpen(false); // Close the edit modal after saving
+      setIsEditModalOpen(false); 
     }
   };
 
-  // Function to filter collections by search query
+
   const filteredCollections = collections.filter((collection) =>
     collection.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -161,7 +162,7 @@ export default function AdminPanel() {
           </tbody>
         </table>
 
-        {/* Create Modal */}
+      
         {isCreateModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -204,7 +205,7 @@ export default function AdminPanel() {
           </div>
         )}
 
-        {/* Edit Modal */}
+      
         {isEditModalOpen && editingItem && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
