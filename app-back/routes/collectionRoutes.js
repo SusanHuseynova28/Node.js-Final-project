@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const collectionController = require('../controllers/collectioncards'); 
+const collectionController = require('../controllers/collectioncards');
 
 
 router.get('/', collectionController.getAllCollections);
@@ -8,8 +8,8 @@ router.get('/', collectionController.getAllCollections);
 
 router.get('/:id', collectionController.getCollectionById);
 
-router.post('/', collectionController.createCollection);
 
+router.post('/', collectionController.createCollection);
 
 router.put('/:id', collectionController.updateCollection);
 

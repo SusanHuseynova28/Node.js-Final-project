@@ -36,7 +36,9 @@ const AutumnCollectionSchema = new mongoose.Schema({
     discount: {
         type: Number, 
         required: true
-    }
+    },
+   
+  
 });
 
 module.exports = mongoose.model('AutumnCollection', AutumnCollectionSchema);

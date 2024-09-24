@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import HomeSwiper from "../_components/SwipperHomePage";
 import Navbar from "../_featured/header";
 import Footer from "../_featured/footer";
@@ -12,19 +12,8 @@ import FeaturedProducts from "../_components/featuredproducts";
 import CustomerReviewSwiper from "../_components/CustomerReviewSwiper";
 import JournalPage from "../_components/JournalPage";
 import InstagramGallery from "../_components/InstagramGallery";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 export default function Homepage() {
-  const router  = useRouter()
-  const user = localStorage.getItem("token")
-
-
-  useEffect(()=>{
-    if(!user){
-      router.push("/login")
-    }
-  },[user])
   return (
     <>
       <Navbar />

@@ -3,12 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation"; 
 import { Collection } from "@/app/types/collection";
 
-export default function CollectionGrid( ) {
+export default function CollectionGrid() {
   const [collections, setCollections] = useState<Collection[]>([]);
   const [cartItems, setCartItems] = useState<Collection[]>([]);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter(); 
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -54,6 +56,10 @@ export default function CollectionGrid( ) {
     localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
   };
 
+  const handleCardClick = (id: string) => {
+    router.push(`/dynamic/${id}`); 
+  };
+
   return (
     <div className="container mx-auto py-8 relative">
       <h2 className="text-center text-3xl mb-4">Trendy Collection</h2>
@@ -73,7 +79,10 @@ export default function CollectionGrid( ) {
       >
         {collections.map((collection) => (
           <SwiperSlide key={collection._id}>
-            <div className="relative group overflow-hidden transition-transform duration-300 ">
+            <div
+              className="relative group overflow-hidden transition-transform duration-300 "
+              onClick={() => handleCardClick(collection._id)} 
+            >
               <img
                 src={collection.imageUrl}
                 alt={collection.title}
@@ -87,14 +96,27 @@ export default function CollectionGrid( ) {
               <div className="absolute right-4 top-4 flex flex-col space-y-2 opacity-0 transition-all duration-300 transform translate-x-full group-hover:translate-x-0 group-hover:opacity-100">
                 <button
                   className="p-2 rounded-full shadow-lg  text-white transition"
-                  onClick={() => addToWishlist(collection)}
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                    addToWishlist(collection);
+                  }}
                 >
                   <FaHeart className="text-black" />
                 </button>
-                <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200 transition">
+                <button
+                  className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200 transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <FaSyncAlt className="text-black hover:text-white" />
                 </button>
-                <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200 transition">
+                <button
+                  className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200 transition"
+                  onClick={(e) => {
+                    e.stopPropagation(); 
+                  }}
+                >
                   <FaSearch className="text-black hover:text-white" />
                 </button>
               </div>

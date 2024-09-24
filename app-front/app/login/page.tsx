@@ -57,9 +57,9 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black to-white">
-      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg flex">
+      <div className="w-full max-w-6xl bg-white shadow-lg rounded-lg flex h-[450px]">
         <div className="w-1/2 p-8">
-          <form onSubmit={handleSubmit} className="flex flex-col">
+          <form onSubmit={handleSubmit} className="flex flex-col mt-6">
             <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
             <input
               type="text"

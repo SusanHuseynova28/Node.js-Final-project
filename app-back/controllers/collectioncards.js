@@ -10,6 +10,7 @@ exports.getAllCollections = async (req, res) => {
     }
 };
 
+
 exports.getCollectionById = async (req, res) => {
     try {
         const collection = await Collection.findById(req.params.id);
