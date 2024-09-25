@@ -9,7 +9,6 @@ export default function Contact(){
             <Layout>
             <ContactPageMap/>
            <AdminPanel/>
-          
             </Layout>
             </div>
     )

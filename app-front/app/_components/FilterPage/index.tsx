@@ -2,13 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { Collection } from "@/app/types/collection"; // Assuming Collection type exists
+import { Collection } from "@/app/types/collection";
 
 export default function FilterPage() {
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [filteredCollections, setFilteredCollections] = useState<Collection[]>([]);
+  const [filteredCollections, setFilteredCollections] = useState<Collection[]>(
+    []
+  );
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1570); // Set max price dynamically
+  const [maxPrice, setMaxPrice] = useState(1570);
   const [filters, setFilters] = useState({
     price: [0, 1570],
     material: "",
@@ -19,7 +21,6 @@ export default function FilterPage() {
 
   const router = useRouter();
 
-  // Fetch collections and set price range
   useEffect(() => {
     const fetchCollections = async () => {
       try {
@@ -43,11 +44,9 @@ export default function FilterPage() {
     fetchCollections();
   }, []);
 
-  // Apply filters (only Price filter works for now)
   useEffect(() => {
     let filtered = collections;
 
-    // Apply price range filter
     filtered = filtered.filter(
       (item) => item.price >= filters.price[0] && item.price <= filters.price[1]
     );
@@ -62,9 +61,7 @@ export default function FilterPage() {
     }));
   };
 
-  const handleAddToCart = (item: Collection) => {
- 
-  };
+  const handleAddToCart = (item: Collection) => {};
 
   const handleCardClick = (id: string) => {
     router.push(`/dynamic/${id}`);
@@ -72,31 +69,40 @@ export default function FilterPage() {
 
   return (
     <div className="flex mt-8">
-      {/* Filter section */}
       <div className="w-1/4 p-4  mt-10 pl-10">
         <h3 className="text-lg font-semibold mb-4">Filters</h3>
 
-        {/* Collections */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Collections
-            <span className="text-gray-500">&#x25BC;</span> 
+            <span className="text-gray-500">&#x25BC;</span>
           </h4>
           <ul className="ml-4 space-y-2 text-sm text-gray-800">
-            <li><input type="checkbox" className="mr-2" /> All collections</li>
-            <li><input type="checkbox" className="mr-2" /> Art by Saviola</li>
-            <li><input type="checkbox" className="mr-2" /> Middle of North</li>
-            <li><input type="checkbox" className="mr-2" /> Morden</li>
-            <li><input type="checkbox" className="mr-2" /> Original</li>
-            <li><input type="checkbox" className="mr-2" /> Royal Love</li>
+            <li>
+              <input type="checkbox" className="mr-2" /> All collections
+            </li>
+            <li>
+              <input type="checkbox" className="mr-2" /> Art by Saviola
+            </li>
+            <li>
+              <input type="checkbox" className="mr-2" /> Middle of North
+            </li>
+            <li>
+              <input type="checkbox" className="mr-2" /> Morden
+            </li>
+            <li>
+              <input type="checkbox" className="mr-2" /> Original
+            </li>
+            <li>
+              <input type="checkbox" className="mr-2" /> Royal Love
+            </li>
           </ul>
         </div>
 
-        {/* Price */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Price
-            <span className="text-gray-500">&#x25BC;</span> {/* Dropdown arrow */}
+            <span className="text-gray-500">&#x25BC;</span>
           </h4>
           <div className="relative flex items-center">
             <input
@@ -113,7 +119,6 @@ export default function FilterPage() {
           </p>
         </div>
 
-        {/* Material */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Material
@@ -132,7 +137,6 @@ export default function FilterPage() {
           </ul>
         </div>
 
-        {/* Color */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Color
@@ -147,7 +151,6 @@ export default function FilterPage() {
           </div>
         </div>
 
-        {/* Size */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Size
@@ -163,7 +166,6 @@ export default function FilterPage() {
           </div>
         </div>
 
-        {/* Availability */}
         <div className="mb-6">
           <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
             Availability
@@ -180,7 +182,6 @@ export default function FilterPage() {
         </div>
       </div>
 
-      
       <div className="w-3/4 p-16">
         <div className="grid grid-cols-3 gap-6">
           {filteredCollections.length > 0 ? (
@@ -212,7 +213,9 @@ export default function FilterPage() {
                   </button>
                 </div>
                 <div className="mt-4 text-center relative">
-                  <h3 className="text-xs uppercase">{collection.description}</h3>
+                  <h3 className="text-xs uppercase">
+                    {collection.description}
+                  </h3>
                   <p className="text-gray-600 mt-2">{collection.title}</p>
                   <div className="relative mt-2">
                     <span

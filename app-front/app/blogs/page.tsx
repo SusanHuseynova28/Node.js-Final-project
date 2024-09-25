@@ -56,7 +56,7 @@ export default function AdminPanel() {
     });
 
     if (response.ok) {
-      await mutate(); // Ensure data is updated after the mutation
+      await mutate();
       setNewItem({
         title: "",
         price: "",
@@ -81,7 +81,7 @@ export default function AdminPanel() {
     );
 
     if (response.ok) {
-      await mutate(); // Refresh data after deletion
+      await mutate();
     } else {
       console.error("Failed to delete item.");
     }
@@ -112,7 +112,7 @@ export default function AdminPanel() {
     );
 
     if (response.ok) {
-      await mutate(); // Ensure data is updated after edit
+      await mutate();
       setEditingItem(null);
       setIsEditModalOpen(false);
     } else {
@@ -191,7 +191,6 @@ export default function AdminPanel() {
           </tbody>
         </table>
 
-        {/* Create Modal */}
         {isCreateModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
@@ -254,7 +253,6 @@ export default function AdminPanel() {
           </div>
         )}
 
-        {/* Edit Modal */}
         {isEditModalOpen && editingItem && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">

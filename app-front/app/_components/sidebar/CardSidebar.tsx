@@ -1,6 +1,23 @@
 import React from "react";
 import { FiX, FiShoppingCart, FiTruck, FiTrash } from "react-icons/fi";
 
+interface CartItem {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+  quantity: number;
+}
+
+interface CardSidebarProps {
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+  cartItems: CartItem[];
+  removeFromCart: (id: string) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
+}
+
 export default function CardSidebar({
   isSidebarOpen,
   toggleSidebar,
@@ -8,7 +25,7 @@ export default function CardSidebar({
   removeFromCart,
   increaseQuantity,
   decreaseQuantity,
-}) {
+}: CardSidebarProps) {
   const items = cartItems || [];
 
   return (

@@ -88,7 +88,7 @@ exports.updateCollection = async (req, res) => {
             const updatedData = { title, price, description };
 
             if (req.file) {
-                updatedData.imageUrl = `/uploads/${req.file.filename}`; // Update image path if new image uploaded
+                updatedData.imageUrl = `/uploads/${req.file.filename}`; 
             }
 
             const updatedCollection = await Collection.findByIdAndUpdate(req.params.id, updatedData, { new: true });

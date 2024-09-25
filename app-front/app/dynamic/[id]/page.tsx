@@ -77,7 +77,6 @@ export default function ProductPage() {
     <>
       <Navbar />
       <div className="container mx-auto py-8 flex flex-col lg:flex-row space-x-0 lg:space-x-8 mt-10 p-14">
-        {/* Sticky Images */}
         <div className="flex flex-col w-full lg:w-1/2 space-y-4 lg:space-y-0 lg:space-x-4 lg:flex-row">
           <div className="flex flex-col space-y-4 lg:space-y-4 w-16 lg:w-1/5 sticky top-16">
             <img
@@ -110,30 +109,24 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Text Section */}
         <div className="w-full lg:w-1/2 space-y-6">
-          {/* Product Title */}
           <h2 className="text-3xl font-bold text-gray-800">{product.title}</h2>
 
-          {/* Reviews and Sold Info */}
           <div className="flex items-center space-x-2 text-sm">
             <p className="text-gray-500">3 reviews</p>
             <span className="text-gray-300">|</span>
             <p className="text-red-500">10 sold in last 17 hours</p>
           </div>
 
-          {/* Product Price */}
-          <p className="text-2xl font-semibold mt-4 text-black">${product.price}</p>
-
-          {/* Product Description */}
-          <p className="mt-4 text-gray-700">
-            {product.description}
+          <p className="text-2xl font-semibold mt-4 text-black">
+            ${product.price}
           </p>
+
+          <p className="mt-4 text-gray-700">{product.description}</p>
           <p className="text-sm text-gray-500 mt-4">
             24 people are viewing this right now
           </p>
 
-          {/* Size Guide, Ask a Question, Share */}
           <div className="flex items-center space-x-4 text-sm text-gray-500 mt-4">
             <button className="flex items-center space-x-1 hover:underline">
               <span>📏</span> <span>Size Guide</span>
@@ -146,7 +139,6 @@ export default function ProductPage() {
             </button>
           </div>
 
-          {/* Personalization */}
           <div className="mt-6 border-t border-gray-300 pt-4">
             <h3 className="font-semibold mb-2">Add your personalization</h3>
             <p className="text-sm text-gray-500 mb-2">
@@ -169,14 +161,12 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Stock Alert */}
           <div className="mt-6">
             <p className="text-red-500 font-semibold">
               Hurry Up! Only <span>10</span> left in stock!
             </p>
           </div>
 
-          {/* Purchase Options */}
           <div className="mt-6 border-t border-gray-300 pt-4">
             <h3 className="font-semibold mb-2">Purchase Options</h3>
             <div className="flex items-center mb-2">
@@ -194,7 +184,6 @@ export default function ProductPage() {
             </div>
           </div>
 
-          {/* Quantity and Add to Cart */}
           <div className="mt-6 flex items-center space-x-4">
             <div className="flex border border-gray-300 rounded-lg overflow-hidden">
               <button className="px-4 py-2">-</button>
@@ -205,12 +194,11 @@ export default function ProductPage() {
               />
               <button className="px-4 py-2">+</button>
             </div>
-            <button className="bg-black text-white py-2 px-6 rounded-lg hover:bg-gray-800">
+            <button className="bg-black text-white py-2 px-14  hover:bg-gray-800">
               ADD TO CART
             </button>
           </div>
 
-          {/* Terms and Conditions */}
           <div className="mt-4">
             <input type="checkbox" className="mr-2" />
             <label className="text-sm">
@@ -218,12 +206,10 @@ export default function ProductPage() {
             </label>
           </div>
 
-          {/* Buy It Now Button */}
           <button className="mt-4 bg-gray-100 text-gray-600 py-2 px-6 rounded-lg hover:bg-gray-200 w-full">
             BUY IT NOW
           </button>
 
-          {/* Pickup Information */}
           <div className="mt-6">
             <p className="text-sm text-gray-500">
               Pickup available at{" "}
@@ -232,26 +218,33 @@ export default function ProductPage() {
             </p>
           </div>
 
-          {/* Shipping Info */}
-          <div className="text-sm mt-4">
-            <p>Estimate delivery times: <strong>12-26 days</strong> (International), <strong>3-6 days</strong> (United States).</p>
-            <p>Return within <strong>45 days</strong> of purchase. Duties & taxes are non-refundable.</p>
-          </div>
-
-          {/* SKU and Vendor Info */}
-          <div className="text-sm mt-4">
-            <p>Sku: <strong>N/A</strong></p>
-            <p>Vendor: <strong>Agini</strong></p>
-          </div>
-
-          {/* Categories */}
           <div className="text-sm mt-4">
             <p>
-              Categories: Accessories, Best Seller, Bracelets, Charms & Dangles, Earrings, Featured, Home Page, Necklaces, New Arrivals, New Collection, Product Grid, Rings, Shop.
+              Estimate delivery times: <strong>12-26 days</strong>{" "}
+              (International), <strong>3-6 days</strong> (United States).
+            </p>
+            <p>
+              Return within <strong>45 days</strong> of purchase. Duties & taxes
+              are non-refundable.
             </p>
           </div>
 
-          
+          <div className="text-sm mt-4">
+            <p>
+              Sku: <strong>N/A</strong>
+            </p>
+            <p>
+              Vendor: <strong>Agini</strong>
+            </p>
+          </div>
+
+          <div className="text-sm mt-4">
+            <p>
+              Categories: Accessories, Best Seller, Bracelets, Charms & Dangles,
+              Earrings, Featured, Home Page, Necklaces, New Arrivals, New
+              Collection, Product Grid, Rings, Shop.
+            </p>
+          </div>
         </div>
       </div>
       <Footer />
