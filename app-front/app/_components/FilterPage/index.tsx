@@ -1,24 +1,25 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { ProductCollection } from "@/app/types/ProductCollection";
+import { FaHeart, FaSyncAlt, FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { Collection } from "@/app/types/collection"; // Assuming Collection type exists
 
 export default function FilterPage() {
-  const [collections, setCollections] = useState<ProductCollection[]>([]);
-  const [filteredCollections, setFilteredCollections] = useState<
-    ProductCollection[]
-  >([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const collectionsPerPage = 9;
+  const [collections, setCollections] = useState<Collection[]>([]);
+  const [filteredCollections, setFilteredCollections] = useState<Collection[]>([]);
   const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(1000);
-
+  const [maxPrice, setMaxPrice] = useState(1570); // Set max price dynamically
   const [filters, setFilters] = useState({
-    price: [0, 1000],
+    price: [0, 1570],
     material: "",
     color: "",
     size: "",
     availability: "",
   });
 
+  const router = useRouter();
+
+  // Fetch collections and set price range
   useEffect(() => {
     const fetchCollections = async () => {
       try {
@@ -28,7 +29,7 @@ export default function FilterPage() {
         setCollections(data);
         setFilteredCollections(data);
 
-        const prices = data.map((item: ProductCollection) => item.price);
+        const prices = data.map((item: Collection) => item.price);
         setMinPrice(Math.min(...prices));
         setMaxPrice(Math.max(...prices));
         setFilters((prevFilters) => ({
@@ -36,106 +37,75 @@ export default function FilterPage() {
           price: [Math.min(...prices), Math.max(...prices)],
         }));
       } catch (error) {
-        console.error("Error fetching collections:", error);
+        console.error("Kolleksiyaları yükləyərkən xəta baş verdi:", error);
       }
     };
     fetchCollections();
   }, []);
 
+  // Apply filters (only Price filter works for now)
   useEffect(() => {
     let filtered = collections;
 
+    // Apply price range filter
     filtered = filtered.filter(
       (item) => item.price >= filters.price[0] && item.price <= filters.price[1]
     );
 
-    if (filters.material) {
-      filtered = filtered.filter((item) => item.material === filters.material);
-    }
-
-    if (filters.color) {
-      filtered = filtered.filter((item) => item.color === filters.color);
-    }
-
-    if (filters.size) {
-      filtered = filtered.filter((item) => item.size.includes(filters.size));
-    }
-
-    if (filters.availability) {
-      filtered = filtered.filter((item) =>
-        filters.availability === "in stock" ? item.inStock : !item.inStock
-      );
-    }
-
     setFilteredCollections(filtered);
   }, [filters, collections]);
 
-  const indexOfLastCollection = currentPage * collectionsPerPage;
-  const indexOfFirstCollection = indexOfLastCollection - collectionsPerPage;
-  const currentCollections = filteredCollections.slice(
-    indexOfFirstCollection,
-    indexOfLastCollection
-  );
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(filteredCollections.length / collectionsPerPage);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
-
-  const handleFilterChange = (type: string, value: any) => {
+  const handlePriceChange = (value: number) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [type]: value,
+      price: [minPrice, value],
     }));
+  };
+
+  const handleAddToCart = (item: Collection) => {
+ 
+  };
+
+  const handleCardClick = (id: string) => {
+    router.push(`/dynamic/${id}`);
   };
 
   return (
     <div className="flex mt-8">
-      <div className="w-1/4 p-4">
+      {/* Filter section */}
+      <div className="w-1/4 p-4  mt-10 pl-10">
         <h3 className="text-lg font-semibold mb-4">Filters</h3>
 
+        {/* Collections */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Collections</h4>
-          <ul className="ml-4 space-y-2 text-sm">
-            <li>
-              <input type="checkbox" /> All collections
-            </li>
-            <li>
-              <input type="checkbox" /> Art by Savila
-            </li>
-            <li>
-              <input type="checkbox" /> Middle of North
-            </li>
-            <li>
-              <input type="checkbox" /> Media
-            </li>
-            <li>
-              <input type="checkbox" /> Original
-            </li>
-            <li>
-              <input type="checkbox" /> Royal Love
-            </li>
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Collections
+            <span className="text-gray-500">&#x25BC;</span> 
+          </h4>
+          <ul className="ml-4 space-y-2 text-sm text-gray-800">
+            <li><input type="checkbox" className="mr-2" /> All collections</li>
+            <li><input type="checkbox" className="mr-2" /> Art by Saviola</li>
+            <li><input type="checkbox" className="mr-2" /> Middle of North</li>
+            <li><input type="checkbox" className="mr-2" /> Morden</li>
+            <li><input type="checkbox" className="mr-2" /> Original</li>
+            <li><input type="checkbox" className="mr-2" /> Royal Love</li>
           </ul>
         </div>
 
+        {/* Price */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Price</h4>
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Price
+            <span className="text-gray-500">&#x25BC;</span> {/* Dropdown arrow */}
+          </h4>
           <div className="relative flex items-center">
             <input
               type="range"
               min={minPrice}
               max={maxPrice}
               value={filters.price[1]}
-              onChange={(e) =>
-                handleFilterChange("price", [minPrice, +e.target.value])
-              }
-              className="w-full"
+              onChange={(e) => handlePriceChange(+e.target.value)}
+              className="w-full accent-black"
             />
           </div>
           <p className="text-gray-600 text-sm mt-2">
@@ -143,157 +113,123 @@ export default function FilterPage() {
           </p>
         </div>
 
+        {/* Material */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Material</h4>
-          <ul className="ml-4 space-y-2 text-sm">
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Material
+            <span className="text-gray-500">&#x25BC;</span>
+          </h4>
+          <ul className="ml-4 space-y-2 text-sm text-gray-800">
             <li>
-              <input
-                type="checkbox"
-                onClick={() => handleFilterChange("material", "bronze")}
-              />{" "}
-              Bronze
+              <input type="checkbox" className="mr-2" /> Bronze (2)
             </li>
             <li>
-              <input
-                type="checkbox"
-                onClick={() => handleFilterChange("material", "gold")}
-              />{" "}
-              Gold
+              <input type="checkbox" className="mr-2" /> Gold (3)
             </li>
             <li>
-              <input
-                type="checkbox"
-                onClick={() => handleFilterChange("material", "silver")}
-              />{" "}
-              Silver
+              <input type="checkbox" className="mr-2" /> Silver (3)
             </li>
           </ul>
         </div>
 
+        {/* Color */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Color</h4>
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Color
+            <span className="text-gray-500">&#x25BC;</span>
+          </h4>
           <div className="flex space-x-2 mt-2">
-            <div
-              className="w-6 h-6 bg-black rounded-full cursor-pointer"
-              onClick={() => handleFilterChange("color", "black")}
-            />
-            <div
-              className="w-6 h-6 bg-red-500 rounded-full cursor-pointer"
-              onClick={() => handleFilterChange("color", "red")}
-            />
-            <div
-              className="w-6 h-6 bg-blue-500 rounded-full cursor-pointer"
-              onClick={() => handleFilterChange("color", "blue")}
-            />
-            <div
-              className="w-6 h-6 bg-yellow-500 rounded-full cursor-pointer"
-              onClick={() => handleFilterChange("color", "yellow")}
-            />
-            <div
-              className="w-6 h-6 bg-gray-400 rounded-full cursor-pointer"
-              onClick={() => handleFilterChange("color", "gray")}
-            />
+            <div className="w-6 h-6 bg-black rounded-full border cursor-pointer"></div>
+            <div className="w-6 h-6 bg-blue-500 rounded-full border cursor-pointer"></div>
+            <div className="w-6 h-6 bg-yellow-500 rounded-full border cursor-pointer"></div>
+            <div className="w-6 h-6 bg-red-500 rounded-full border cursor-pointer"></div>
+            <div className="w-6 h-6 bg-gray-400 rounded-full border cursor-pointer"></div>
           </div>
         </div>
 
+        {/* Size */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Size</h4>
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Size
+            <span className="text-gray-500">&#x25BC;</span>
+          </h4>
           <div className="flex space-x-2 mt-2">
-            <button
-              className="px-2 py-1 border text-sm"
-              onClick={() => handleFilterChange("size", "S")}
-            >
-              S
-            </button>
-            <button
-              className="px-2 py-1 border text-sm"
-              onClick={() => handleFilterChange("size", "M")}
-            >
-              M
-            </button>
-            <button
-              className="px-2 py-1 border text-sm"
-              onClick={() => handleFilterChange("size", "L")}
-            >
-              L
-            </button>
+            <button className="px-2 py-1 border text-sm">S</button>
+            <button className="px-2 py-1 border text-sm">M</button>
+            <button className="px-2 py-1 border text-sm">L</button>
+            <button className="px-2 py-1 border text-sm">12</button>
+            <button className="px-2 py-1 border text-sm">14</button>
+            <button className="px-2 py-1 border text-sm">16</button>
           </div>
         </div>
 
+        {/* Availability */}
         <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Availability</h4>
-          <ul className="ml-4 space-y-2 text-sm">
+          <h4 className="text-md font-semibold mb-2 flex justify-between items-center">
+            Availability
+            <span className="text-gray-500">&#x25BC;</span>
+          </h4>
+          <ul className="ml-4 space-y-2 text-sm text-gray-800">
             <li>
-              <input
-                type="checkbox"
-                onClick={() => handleFilterChange("availability", "in stock")}
-              />{" "}
-              In Stock
+              <input type="checkbox" className="mr-2" /> In Stock (45)
             </li>
             <li>
-              <input
-                type="checkbox"
-                onClick={() =>
-                  handleFilterChange("availability", "out of stock")
-                }
-              />{" "}
-              Out of Stock
-            </li>
-          </ul>
-        </div>
-
-        <div className="mb-6">
-          <h4 className="text-md font-semibold mb-2">Tags</h4>
-          <ul className="ml-4 space-y-2 text-sm">
-            <li>
-              <input type="checkbox" /> Bags
-            </li>
-            <li>
-              <input type="checkbox" /> Black
-            </li>
-            <li>
-              <input type="checkbox" /> Blue
-            </li>
-            <li>
-              <input type="checkbox" /> Brand
-            </li>
-            <li>
-              <input type="checkbox" /> Fashion
+              <input type="checkbox" className="mr-2" /> Out of Stock (6)
             </li>
           </ul>
         </div>
       </div>
 
-      <div className="w-3/4 p-4">
+      
+      <div className="w-3/4 p-16">
         <div className="grid grid-cols-3 gap-6">
-          {currentCollections.length > 0 ? (
-            currentCollections.map((collection) => (
+          {filteredCollections.length > 0 ? (
+            filteredCollections.map((collection) => (
               <div
                 key={collection._id}
-                className=" p-4   transition-all relative"
+                className="relative group overflow-hidden transition-transform duration-300"
+                onClick={() => handleCardClick(collection._id)}
               >
                 <img
                   src={collection.imageUrl}
                   alt={collection.title}
-                  className="w-full h-64 object-cover mb-2"
+                  className="object-cover w-full h-[320px] transition-opacity duration-300 hover:opacity-80"
                 />
-                <h3 className="text-md font-semibold">{collection.title}</h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  ${collection.price}
-                </p>
-                {collection.onSale && (
-                  <span className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-bold">
-                    Sale
-                  </span>
-                )}
-                {collection.new && (
-                  <span className="absolute top-2 left-2 bg-blue-500 text-white px-2 py-1 text-xs font-bold">
-                    New
-                  </span>
-                )}
-                <button className="bg-black text-white mt-2 px-4 py-1 text-sm">
-                  Add to Cart
-                </button>
+                <img
+                  src={collection.hoverImageUrl}
+                  alt={`${collection.title} Hover`}
+                  className="absolute inset-0 object-cover w-full h-[320px] opacity-0 transition-opacity duration-300 hover:opacity-100"
+                />
+                <div className="absolute right-4 top-4 flex flex-col space-y-2 opacity-0 transition-all duration-300 transform translate-x-full group-hover:translate-x-0 group-hover:opacity-100">
+                  <button className="p-2 rounded-full shadow-lg bg-white text-black">
+                    <FaHeart />
+                  </button>
+                  <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200">
+                    <FaSyncAlt />
+                  </button>
+                  <button className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-200">
+                    <FaSearch />
+                  </button>
+                </div>
+                <div className="mt-4 text-center relative">
+                  <h3 className="text-xs uppercase">{collection.description}</h3>
+                  <p className="text-gray-600 mt-2">{collection.title}</p>
+                  <div className="relative mt-2">
+                    <span
+                      className="text-sm cursor-pointer"
+                      onMouseEnter={() => {}}
+                      onMouseLeave={() => {}}
+                    >
+                      ${collection.price}
+                    </span>
+                    <p
+                      className="hidden text-sm font-semibold text-black cursor-pointer transition-opacity underline"
+                      onClick={() => handleAddToCart(collection)}
+                    >
+                      ADD TO CART
+                    </p>
+                  </div>
+                </div>
               </div>
             ))
           ) : (
